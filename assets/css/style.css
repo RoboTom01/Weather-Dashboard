@@ -1,0 +1,84 @@
+
+/* elements */
+
+body {
+    display: flex;
+    margin: 0px;
+    min-height: 100vh;
+};
+
+aside {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    min-height: 100vh;
+    width: 30%;
+}
+
+aside section {
+    display: flex;
+    justify-content: center;
+    height: 95%;
+    width: 95%;
+    padding: 40px 0;
+    border-radius: 50pt;
+    background-color: navy;
+}
+
+aside section > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 80%;
+    width: 100%;
+}
+
+aside form {
+    display: flex;
+    min-height: 40px;
+    width: 80%;
+    border: 2px solid black;
+    border-radius: 50pt;
+    background-color: navy;
+}
+
+form button {
+    border: none;
+    border-radius: 0 50pt 50pt 0;
+    color: black;
+    background: teal;
+}
+
+input {
+    width: 80%;
+    border: none;
+    outline: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+    width: 80%;
+}
+
+/* classes */
+
+#current {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+}
+
+#forecast {
+    display: flex;
+    align-items: center;
+    height: 60%;
+}
+
+/* id's */
+

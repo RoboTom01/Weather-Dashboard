@@ -1,4 +1,6 @@
 
+// variables
+
 let APIKey = "56753a59062baeaae0d9efab9fa5986c";
 let storedSearches;
 let forecastHigh = -100;
@@ -6,7 +8,7 @@ let forecastLow = 200;
 let averageWindSpeed = 0;
 let averageHumidity = 0;
 
-
+// functions
 
 function renderLocalStorage() {
     searchHistory.innerHTML = "";
@@ -27,8 +29,6 @@ function getLocalStorage() {
     storedSearches = JSON.parse(localStorage.getItem("searches")) || [];
     renderLocalStorage();
 }
-
-getLocalStorage();
 
 function renderCurrentWeather(data) {
     current.innerHTML = "";
@@ -128,3 +128,6 @@ function displayForecast(name) {
         })
 }
 
+// calls
+
+getLocalStorage();
