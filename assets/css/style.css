@@ -5,6 +5,7 @@ body {
     display: flex;
     margin: 0px;
     min-height: 100vh;
+    background-color: darkgrey
 };
 
 aside {
@@ -78,6 +79,11 @@ main {
     display: flex;
     align-items: center;
     height: 60%;
+}
+
+#current, #forecast {
+    border-radius: 50pt;
+    background-color: aqua;
 }
 
 /* id's */

@@ -7,6 +7,26 @@ let forecastHigh = -100;
 let forecastLow = 200;
 let averageWindSpeed = 0;
 let averageHumidity = 0;
+let current = document.getElementById("current");
+let forecast = document.getElementById("forecast");
+let searchForm = document.getElementById("searchForm");
+let searchInput = document.getElementById("searchInput");
+let searchHistory = document.getElementById("searchHistory");
+
+
+
+
+// let date = new Date(data.dt * 1000).toLocaleTimeString("en-US", {
+//     weekday: "long",
+//     year: "numeric",
+//     month: "short",
+//     day: "numeric",
+// });
+// console.log(date);
+// console.log(date.toLocaleTimeString("en-US"));
+
+
+
 
 // functions
 
@@ -37,38 +57,58 @@ function renderCurrentWeather(data) {
     current.append(name);
 
     let date = document.createElement("div");
-    date.textContent = new Date(data.dt * 1000).toLocaleTimeString("en-US", {
+    date.textContent = new Date().toLocaleDateString("en-US", {
+        weekday: "long",
         year: "numeric",
         month: "short",
-        weekday: "long",
         day: "numeric",
     });
+    // console.log(date);
+    // console.log(date.toLocaleTimeString("en-US"));
     current.append(date);
 
     let temp = document.createElement("div");
     temp.textContent = data.main.temp;
+    // console.log(temp);
     current.append(temp);
 
     let humidity = document.createElement("div");
-    humidity.textContent = data.main.temp;
+    humidity.textContent = data.main.humidity;
     current.append(humidity);
 
-    let windspeed = docuemnt.createElement("div");
-    windspeed.textContent = data.main.temp;
+    let windspeed = document.createElement("div");
+    windspeed.textContent = data.main.windspeed;
     current.append(windspeed);
 
     let icon = document.createElement("img");
-    icon.src =
-        "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+    icon.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
     current.append(icon);
 
 }
 
+function displayCurrent(name) {
+    let cityName = name;
+    let cityQuery = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial" + "&appid=" + APIKey;
+
+    fetch(cityQuery)
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            renderCurrentWeather(data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
 function renderForecast(data) {
+    let infoIndex = [7, 15, 23, 31, 39];
     forecastHigh.innerHTML = "";
     for (let i = 0; i < data.list.length; i++) {
         let forecastCard = document.createElement("div");
-        let forcastIcon = document.createElement("img");
+        let forecastIcon = document.createElement("img");
 
         if (data.list[i].main.temp_max > forecastHigh) {
             forecastHigh = data.list[i].main.temp_max;
@@ -102,11 +142,9 @@ function renderForecast(data) {
             forecastCard.append(windSpeed);
             forecastHigh = 0;
 
-            forecastIcon.src =
-                "https://openweathermap.org/img/wn" + data.list[i].weather[0].icon + "@2x.png"
-            forecastCard.append(forcastIcon);
-
-            forecastCard.append(forecastCard);
+            forecastIcon.src = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png"
+            forecast.append(forecastIcon);
+            forecast.append(forecastCard);
         }
     }
 }
@@ -125,9 +163,19 @@ function displayForecast(name) {
         })
         .catch(function (err) {
             console.log(err);
-        })
+        });
 }
 
-// calls
+function searchCity(e) {
+    e.preventDefault();
+    displayCurrent(searchInput.value);
+    displayForecast(searchInput.value);
+    storedSearches.push(searchInput.value);
+    localStorage.setItem("search", JSON.stringify(storedSearches))
+}
+
+// calls - listeners
+
+searchForm.addEventListener("submit", searchCity);
 
 getLocalStorage();
