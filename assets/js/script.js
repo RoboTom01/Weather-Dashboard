@@ -26,17 +26,32 @@ let searchHistory = document.getElementById("searchHistory");
 // console.log(date.toLocaleTimeString("en-US"));
 
 
+// calls - listeners
 
+searchForm.addEventListener("submit", searchCity);
+
+searchHistory.addEventListener("click", function (e) {
+    console.log(e.target.textContent);
+    searchCityFromHistory(e.target.textContent);
+});
+
+getLocalStorage();
 
 // functions
 
 function renderLocalStorage() {
     searchHistory.innerHTML = "";
     
+    let storedSearchesLength;
+    if (storedSearches.length > 5){
+        storedSearchesLength = 5;
+    } else {
+        storedSearchesLength = storedSearches.length;
+    }
+
     for (let i = 0; i < storedSearches.length; i++){
         let searchHistoryDiv = document.createElement("div");
         searchHistoryDiv.className - "searchHistoryDiv";
-
         let searchHistoryBtn = document.createElement("button");
         searchHistoryBtn.textContent = storedSearches[i];
         searchHistoryDiv.append(searchHistoryBtn);
@@ -47,6 +62,7 @@ function renderLocalStorage() {
 function getLocalStorage() {
     storedSearches = [];
     storedSearches = JSON.parse(localStorage.getItem("searches")) || [];
+    console.log(storedSearches);
     renderLocalStorage();
 }
 
@@ -55,6 +71,7 @@ function renderCurrentWeather(data) {
     let name = document.createElement("div");
     name.textContent = data.name;
     current.append(name);
+    // current.classList.add("card");
 
     let date = document.createElement("div");
     date.textContent = new Date().toLocaleDateString("en-US", {
@@ -68,22 +85,24 @@ function renderCurrentWeather(data) {
     current.append(date);
 
     let temp = document.createElement("div");
-    temp.textContent = data.main.temp;
+    temp.textContent = "Temp: " + data.main.temp + " F";
     // console.log(temp);
     current.append(temp);
 
     let humidity = document.createElement("div");
-    humidity.textContent = data.main.humidity;
+    humidity.textContent = "Humidity: " + data.main.humidity + "%";
+    // console.log(humidity);
     current.append(humidity);
 
     let windspeed = document.createElement("div");
-    windspeed.textContent = data.main.windspeed;
+    windspeed.textContent = "Wind: " + data.wind.speed + " mph";
+    // console.log(windspeed);
     current.append(windspeed);
 
     let icon = document.createElement("img");
     icon.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
     current.append(icon);
-
+    
 }
 
 function displayCurrent(name) {
@@ -105,7 +124,7 @@ function displayCurrent(name) {
 
 function renderForecast(data) {
     let infoIndex = [7, 15, 23, 31, 39];
-    forecastHigh.innerHTML = "";
+    forecast.innerHTML = "";
     for (let i = 0; i < data.list.length; i++) {
         let forecastCard = document.createElement("div");
         let forecastIcon = document.createElement("img");
@@ -113,7 +132,7 @@ function renderForecast(data) {
         if (data.list[i].main.temp_max > forecastHigh) {
             forecastHigh = data.list[i].main.temp_max;
         }
-        if (data.list[i].main.temp_max > forecastLow) {
+        if (data.list[i].main.temp_min < forecastLow) {
             forecastLow = data.list[i].main.temp_min;
         }
 
@@ -123,28 +142,29 @@ function renderForecast(data) {
         if (infoIndex.includes(i)) {
             console.log("i", i);
             highTemp = document.createElement("div");
-            highTemp.textContent = "High: " + parseInt(forecastHigh);
+            highTemp.textContent = "High: " + parseInt(forecastHigh) + " F";
             forecastCard.append(highTemp);
             forecastHigh = -100;
 
             lowTemp = document.createElement("div");
-            lowTemp.textContent = "Low: " + parseInt(forecastLow);
+            lowTemp.textContent = "Low: " + parseInt(forecastLow) + " F";
             forecastCard.append(lowTemp);
             forecastLow = 200;
 
             humidity = document.createElement("div");
-            humidity.textContent = "Humidity: " + parseInt(averageHumidity / 8);
+            humidity.textContent = "Humidity: " + parseInt(averageHumidity / 8) + "%";
             forecastCard.append(humidity);
             averageHumidity = 0;
 
             windSpeed = document.createElement("div");
-            windSpeed.textContent = "Wind: " + parseInt(averageWindSpeed / 8);
+            windSpeed.textContent = "Wind: " + parseInt(averageWindSpeed / 8) + " mph";
             forecastCard.append(windSpeed);
-            forecastHigh = 0;
+            averageWindSpeed = 0;
 
             forecastIcon.src = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png"
-            forecast.append(forecastIcon);
+            forecastCard.classList.add("card");
             forecast.append(forecastCard);
+            forecastCard.append(forecastIcon);
         }
     }
 }
@@ -168,14 +188,19 @@ function displayForecast(name) {
 
 function searchCity(e) {
     e.preventDefault();
-    displayCurrent(searchInput.value);
-    displayForecast(searchInput.value);
-    storedSearches.push(searchInput.value);
-    localStorage.setItem("search", JSON.stringify(storedSearches))
+    if (searchInput.value !== "") {
+        displayCurrent(searchInput.value);
+        displayForecast(searchInput.value);
+        storedSearches.push(searchInput.value);
+        localStorage.setItem("searches", JSON.stringify(storedSearches))
+        getLocalStorage();
+    }
 }
 
-// calls - listeners
-
-searchForm.addEventListener("submit", searchCity);
-
-getLocalStorage();
+function searchCityFromHistory(name) {
+    displayCurrent(name);
+    displayForecast(name);
+    // storedSearches.push(searchInput.value);
+    // localStorage.setItem("searches", JSON.stringify(storedSearches))
+    // getLocalStorage();
+}

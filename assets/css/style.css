@@ -3,17 +3,24 @@
 
 body {
     display: flex;
-    margin: 0px;
+    margin-top: 15px;
+    margin-left: 15px;
     min-height: 100vh;
-    background-color: darkgrey
+    font-family: sans-serif;
+    /* background-color: darkgrey */
+    background-image: url("https://images.unsplash.com/photo-1521080755838-d2311117f767?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1562&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
 };
 
 aside {
     display: flex;
     justify-content: center;
-    height: 100%;
+    height: 80%;
     min-height: 100vh;
     width: 30%;
+    padding-top: 15px;
+    margin: 15px;
 }
 
 aside section {
@@ -23,7 +30,7 @@ aside section {
     width: 95%;
     padding: 40px 0;
     border-radius: 50pt;
-    background-color: navy;
+    background-color: rgba(196, 214, 234, 0.8);
 }
 
 aside section > div {
@@ -38,9 +45,9 @@ aside form {
     display: flex;
     min-height: 40px;
     width: 80%;
-    border: 2px solid black;
     border-radius: 50pt;
-    background-color: navy;
+    border: 2px solid black;
+    background-color: white;
 }
 
 form button {
@@ -54,6 +61,7 @@ input {
     width: 80%;
     border: none;
     outline: none;
+    margin-left: 15px;
 }
 
 main {
@@ -67,6 +75,18 @@ main {
 
 /* classes */
 
+.card {
+    border-radius: 25pt;
+    background-color: rgba(216, 223, 231, 0.932);
+}
+
+.searchHistoryDiv {
+    align-items: center;
+    justify-content: center;
+}
+
+/* id's */
+
 #current {
     display: flex;
     flex-direction: column;
@@ -77,14 +97,25 @@ main {
 
 #forecast {
     display: flex;
+    justify-content: space-evenly;
     align-items: center;
     height: 60%;
 }
 
 #current, #forecast {
+    width: 95%;
     border-radius: 50pt;
-    background-color: aqua;
+    background-color: rgba(165, 207, 255, 0.8);
 }
 
-/* id's */
-
+#forecast > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10pt;
+    height: 80%;
+    width: 15%;
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
