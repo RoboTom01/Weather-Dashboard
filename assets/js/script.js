@@ -53,6 +53,7 @@ function renderLocalStorage() {
         let searchHistoryDiv = document.createElement("div");
         searchHistoryDiv.className - "searchHistoryDiv";
         let searchHistoryBtn = document.createElement("button");
+        searchHistoryBtn.classList.add("history-button");
         searchHistoryBtn.textContent = storedSearches[i];
         searchHistoryDiv.append(searchHistoryBtn);
         searchHistory.append(searchHistoryDiv);

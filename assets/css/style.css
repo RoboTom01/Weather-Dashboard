@@ -3,15 +3,34 @@
 
 body {
     display: flex;
-    margin-top: 15px;
-    margin-left: 15px;
+    margin: 45px 0 45px 0;
+    border: 0;
     min-height: 100vh;
     font-family: sans-serif;
     /* background-color: darkgrey */
     background-image: url("https://images.unsplash.com/photo-1521080755838-d2311117f767?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1562&q=80");
     background-repeat: no-repeat;
     background-size: cover;
-};
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 0px;
+    text-align: right;
+    background-color: teal;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    font-size: 8pt;
+    background-color: teal;
+}
 
 aside {
     display: flex;
@@ -50,11 +69,20 @@ aside form {
     background-color: white;
 }
 
+form {
+    margin-bottom: 10px;
+}
+
 form button {
     border: none;
     border-radius: 0 50pt 50pt 0;
+    font-size: 12pt;
     color: black;
     background: teal;
+}
+
+h3 {
+    margin: 0px 25px 0px 0px;
 }
 
 input {
@@ -78,6 +106,14 @@ main {
 .card {
     border-radius: 25pt;
     background-color: rgba(216, 223, 231, 0.932);
+}
+
+.history-button {
+    background-color: aquamarine;
+    border-radius: 15pt;
+    font-size: 12pt;
+    margin: 5px;
+    padding: 5px;
 }
 
 .searchHistoryDiv {
