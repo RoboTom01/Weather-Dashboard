@@ -71,6 +71,7 @@ function renderCurrentWeather(data) {
     current.innerHTML = "";
     let name = document.createElement("div");
     name.textContent = data.name;
+    name.classList.add("bold");
     current.append(name);
     // current.classList.add("card");
 

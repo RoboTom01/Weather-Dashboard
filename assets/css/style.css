@@ -103,6 +103,10 @@ main {
 
 /* classes */
 
+.bold {
+    font-weight: bold;
+}
+
 .card {
     border-radius: 25pt;
     background-color: rgba(216, 223, 231, 0.932);
